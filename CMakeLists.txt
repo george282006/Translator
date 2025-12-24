@@ -1,14 +1,24 @@
-
-cmake_minimum_required(VERSION 3.16)
-project(Translator LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.20)
+project(Translator)
 
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-add_executable(translator
-        main.cpp
+include_directories(include)
+include_directories(gtest)
+add_subdirectory(gtest)
+add_executable(Translator
+        include/main.cpp
+        include/lexer.h
+        include/parser.h
+        include/evaluator.h
+        include/stack.h
+        include/token.h
+        include/translator.h
 )
 
-target_include_directories(translator PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/include
+add_executable(TranslatorTests
+        test/test_main.cpp
+        test/test_translator.cpp
 )
+
+target_link_libraries(TranslatorTests gtest)
+
